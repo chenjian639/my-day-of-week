@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>今天是周几？</title>
+    <title>开学第几天</title>
     <style>
         body {
             display: flex;
@@ -35,29 +36,29 @@
 </head>
 <body>
     <div class="container">
-        <h1 id="dayOfWeek"></h1>
-        <p id="fullDate"></p>
+        <h1 id="daysSinceSchoolStarted"></h1>
+        <p id="dateInfo"></p>
     </div>
 
     <script>
-        // 创建一个Date对象获取当前时间
-        const today = new Date();
-        
-        // 获取星期几 (0 代表周日, 1 代表周一, ..., 6 代表周六)
-        const dayOfWeekNumber = today.getDay();
-        
-        // 创建一个星期几的中文字符串数组
-        const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-        
-        // 根据数字获取对应的星期几中文
-        const dayOfWeekStr = weekdays[dayOfWeekNumber];
-        
+        // 设置开学日期（2025年9月8日）
+        const startDate = new Date('2025-09-08');
+        // 获取当前日期
+        const currentDate = new Date();
+
+        // 计算天数差：先计算毫秒差，再转换为天数
+        const timeDifference = currentDate - startDate;
+        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        // 调整天数显示：开学第一天显示为第1天
+        const daysSinceStart = daysDifference + 1;
+
         // 将结果显示在页面上
-        document.getElementById('dayOfWeek').textContent = dayOfWeekStr;
+        document.getElementById('daysSinceSchoolStarted').textContent = `第 ${daysSinceStart} 天`;
         
-        // 可选：显示完整的日期时间
+        // 可选：显示今天的日期
         const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-        document.getElementById('fullDate').textContent = today.toLocaleDateString('zh-CN', options);
+        document.getElementById('dateInfo').textContent = currentDate.toLocaleDateString('zh-CN', options);
     </script>
 </body>
 </html>
